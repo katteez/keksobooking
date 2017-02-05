@@ -1,8 +1,9 @@
 'use strict';
 
-var pinArray = document.querySelectorAll('.pin');
+var pinMap = document.querySelector('.tokyo__pin-map');
+var activePin = pinMap.querySelector('.pin--active');
 var dialog = document.querySelector('.dialog');
-var dialogClose = document.querySelector('.dialog__close');
+var dialogClose = dialog.querySelector('.dialog__close');
 var noticeForm = document.querySelector('.notice__form');
 var titleField = noticeForm.querySelector('#title');
 var priceField = noticeForm.querySelector('#price');
@@ -14,24 +15,53 @@ var typeField = noticeForm.querySelector('#type');
 var roomNumberField = noticeForm.querySelector('#room_number');
 var capacityField = noticeForm.querySelector('#capacity');
 
-var pinClickHandler = function (event) {
-  for (var k = 0; k < pinArray.length; k++) {
-    pinArray[k].classList.remove('pin--active');
+var ENTER_KEY_CODE = 13;
+
+var isEnterKeyPressed = function (event) {
+  return event.keyCode && event.keyCode === ENTER_KEY_CODE;
+};
+
+var openDialogByEnterKey = function (event) {
+  if (isEnterKeyPressed(event)) {
+    openDialog(event);
   }
-  event.currentTarget.classList.add('pin--active');
+};
+
+var openDialog = function (event) {
+  if (activePin) {
+    activePin.classList.remove('pin--active');
+  }
+  dialogClose.setAttribute('aria-pressed', false);
+
+  var target = event.target;
+  if (!target.classList.contains('pin')) {
+    target = target.parentNode;
+  }
+  target.setAttribute('aria-pressed', true);
+  target.classList.add('pin--active');
+  activePin = target;
   dialog.style.display = 'block';
 };
 
-for (var i = 0; i < pinArray.length; i++) {
-  pinArray[i].addEventListener('click', pinClickHandler);
-}
-
-dialogClose.addEventListener('click', function () {
-  dialog.style.display = 'none';
-  for (var k = 0; k < pinArray.length; k++) {
-    pinArray[k].classList.remove('pin--active');
+var closeDialogByEnterKey = function () {
+  if (isEnterKeyPressed(event)) {
+    closeDialog();
   }
-});
+};
+
+var closeDialog = function () {
+  dialogClose.setAttribute('aria-pressed', true);
+  activePin.setAttribute('aria-pressed', false);
+  dialog.style.display = 'none';
+  if (activePin) {
+    activePin.classList.remove('pin--active');
+  }
+};
+
+pinMap.addEventListener('click', openDialog, true);
+pinMap.addEventListener('keydown', openDialogByEnterKey, true);
+dialogClose.addEventListener('click', closeDialog);
+dialogClose.addEventListener('keydown', closeDialogByEnterKey);
 
 timeField.addEventListener('change', function () {
   timeoutField.value = timeField.value;
