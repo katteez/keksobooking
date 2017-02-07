@@ -66,14 +66,14 @@
       </form>
     </div>
     <div class="tokyo__pin-map">
-      <div class="pin  pin__main"><img src="img/main-pin-image.png" alt="Main Pin" class="rounded" width="40" height="44"></div>
-      <div class="pin  pin--active" style="left: 700px;top: 350px"><img src="img/avatars/avatar.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
-      <div class="pin" style="left: 400px;top: 400px"><img src="img/avatars/simpson.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
-      <div class="pin"><img src="img/avatars/default.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
+      <div class="pin  pin__main" role="button" aria-pressed="false" tabindex="4"><img src="img/main-pin-image.png" alt="Main Pin" class="rounded" width="40" height="44"></div>
+      <div class="pin  pin--active" style="left: 700px;top: 350px" role="button" aria-pressed="true" tabindex="5"><img src="img/avatars/avatar.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
+      <div class="pin" style="left: 400px;top: 400px" role="button" aria-pressed="false" tabindex="2"><img src="img/avatars/simpson.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
+      <div class="pin" role="button" aria-pressed="false" tabindex="3"><img src="img/avatars/default.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
     </div>
-    <div class="dialog">
+    <div class="dialog" role="dialog" aria-labelledby="Карточка объявления">
       <div class="dialog__title"><img src="img/avatars/avatar.png" alt="Avatar" width="70" height="70">
-        <a href="#" class="dialog__close"><img src="img/close.svg" alt="close" width="22" height="22"></a>
+        <a href="#" class="dialog__close" role="button" aria-pressed="false"><img src="img/close.svg" alt="close" width="22" height="22" tabindex="1"></a>
       </div>
       <div class="dialog__panel">
         <h3 class="lodge__title">Уютное гнездышко для молодоженов</h3>
@@ -238,20 +238,20 @@
           </div>
         </div>
       </div>
-      <button class="form__submit" type="submit">Опубликовать</button>
+      <button class="form__submit" type="submit" tabindex="100">Опубликовать</button>
     </form>
   </div>
 </main>
 <footer class="footer container">
   <div class="center-wrapper">
     <section class="footer-logo">
-      Сделано в <a tabindex="1" href="https://htmlacademy.ru" class="footer-logo-link"><img src="img/ha-logo.png" class="footer-logo-image" width="130" alt="HTML Academy"/>HTML Academy</a> &copy; 2017
+      Сделано в <a tabindex="101" href="https://htmlacademy.ru" class="footer-logo-link"><img src="img/ha-logo.png" class="footer-logo-image" width="130" alt="HTML Academy"/>HTML Academy</a> &copy; 2017
     </section>
     <nav class="footer-social">
-      <a href="https://twitter.com/htmlacademy_ru" class="footer-social-item footer-social-item-twitter" target="_blank" rel="nofollow">Twitter</a>
-      <a href="https://www.instagram.com/htmlacademy/" class="footer-social-item footer-social-item-instagram" target="_blank" rel="nofollow">Instagtam</a>
-      <a href="https://www.facebook.com/htmlacademy" class="footer-social-item footer-social-item-facebook" target="_blank" rel="nofollow">Facebook</a>
-      <a href="https://vk.com/htmlacademy" class="footer-social-item footer-social-item-vk" target="_blank" rel="nofollow">VK</a>
+      <a href="https://twitter.com/htmlacademy_ru" class="footer-social-item footer-social-item-twitter" target="_blank" rel="nofollow" tabindex="102">Twitter</a>
+      <a href="https://www.instagram.com/htmlacademy/" class="footer-social-item footer-social-item-instagram" target="_blank" rel="nofollow" tabindex="103">Instagtam</a>
+      <a href="https://www.facebook.com/htmlacademy" class="footer-social-item footer-social-item-facebook" target="_blank" rel="nofollow" tabindex="104">Facebook</a>
+      <a href="https://vk.com/htmlacademy" class="footer-social-item footer-social-item-vk" target="_blank" rel="nofollow" tabindex="105">VK</a>
     </nav>
   </div>
 </footer>
