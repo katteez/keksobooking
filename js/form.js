@@ -15,75 +15,47 @@ var typeField = noticeForm.querySelector('#type');
 var roomNumberField = noticeForm.querySelector('#room_number');
 var capacityField = noticeForm.querySelector('#capacity');
 
-var ENTER_KEY_CODE = 13;
-
-var isEnterKeyPressed = function (event) {
-  return event.keyCode && event.keyCode === ENTER_KEY_CODE;
-};
-
-var openDialogByEnterKey = function (event) {
-  if (isEnterKeyPressed(event)) {
-    openDialog(event);
-  }
-};
-
-var openDialog = function (event) {
-  if (activePin) {
-    activePin.classList.remove('pin--active');
-  }
-  dialogClose.setAttribute('aria-pressed', false);
-
-  var target = event.target;
-  if (!target.classList.contains('pin')) {
-    target = target.parentNode;
-  }
-  target.setAttribute('aria-pressed', true);
-  target.classList.add('pin--active');
-  activePin = target;
-  dialog.style.display = 'block';
-};
-
-var closeDialogByEnterKey = function () {
-  if (isEnterKeyPressed(event)) {
-    closeDialog();
-  }
-};
-
-var closeDialog = function () {
-  dialogClose.setAttribute('aria-pressed', true);
-  activePin.setAttribute('aria-pressed', false);
-  dialog.style.display = 'none';
-  if (activePin) {
-    activePin.classList.remove('pin--active');
-  }
-};
-
-pinMap.addEventListener('click', openDialog, true);
-pinMap.addEventListener('keydown', openDialogByEnterKey, true);
-dialogClose.addEventListener('click', closeDialog);
-dialogClose.addEventListener('keydown', closeDialogByEnterKey);
+window.initializePins(dialog, dialogClose, pinMap, activePin);
 
 timeField.addEventListener('change', function () {
-  timeoutField.value = timeField.value;
+  window.synchronizeFields(
+      timeField,
+      timeoutField,
+      [12, 13, 14],
+      [12, 13, 14],
+      'value'
+  );
 });
-
 timeoutField.addEventListener('change', function () {
-  timeField.value = timeoutField.value;
+  window.synchronizeFields(
+      timeoutField,
+      timeField,
+      [12, 13, 14],
+      [12, 13, 14],
+      'value'
+  );
 });
-
-typeField.addEventListener('change', function () {
-  priceField.min = typeField.options[typeField.selectedIndex].value;
-  priceField.addEventListener('invalid', function () {
-    priceField.setCustomValidity('Пожалуйста, введите цену от ' + priceField.min + ' до 1000000');
-  });
-});
-
 roomNumberField.addEventListener('change', function () {
-  if (roomNumberField.value === '1') {
-    capacityField.value = '0';
-  } else {
-    capacityField.value = '3';
-  }
+  window.synchronizeFields(
+      roomNumberField,
+      capacityField,
+      [1, 2, 100],
+      [0, 3, 3],
+      'value'
+  );
+});
+typeField.addEventListener('change', function () {
+  window.synchronizeFields(
+      typeField,
+      priceField,
+      ['flat', 'cabin', 'palace'],
+      [1000, 0, 10000],
+      'min'
+  );
+});
+
+priceField.addEventListener('invalid', function () {
+  priceField.setCustomValidity('Пожалуйста, введите цену от ' + priceField.min + ' до 1000000');
 });
 
 titleField.addEventListener('invalid', function () {
