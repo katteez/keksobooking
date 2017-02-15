@@ -8,46 +8,47 @@ window.initializePins = (function () {
   };
 
   return function (dialog, dialogClose, clickedElement, activeClickedElement) {
-    var openDialog = function (event) {
-      if (activeClickedElement) {
-        activeClickedElement.classList.remove('pin--active');
-      }
-      dialogClose.setAttribute('aria-pressed', false);
+    // Записываем активный элемент в свойство объекта, чтобы его можно было менять в другом модуле (show-card)
+    var activeClickedElementHolder = {value: activeClickedElement};
 
-      var target = event.target;
-      if (!target.classList.contains('pin')) {
-        target = target.parentNode;
-      }
-      target.setAttribute('aria-pressed', true);
-      target.classList.add('pin--active');
-      activeClickedElement = target;
-      dialog.style.display = 'block';
+    var focusActiveClickedElement = function () {
+      activeClickedElementHolder.value.focus();
     };
 
-    var closeDialog = function () {
-      dialogClose.setAttribute('aria-pressed', true);
-      activeClickedElement.setAttribute('aria-pressed', false);
-      dialog.style.display = 'none';
-      if (activeClickedElement) {
-        activeClickedElement.classList.remove('pin--active');
-      }
+    var openDialog = function (event) {
+      window.showCard(event.target, dialog, dialogClose, activeClickedElementHolder, closeDialog, closeDialogByEnterKey);
     };
 
     var openDialogByEnterKey = function (event) {
       if (isEnterKeyPressed(event)) {
-        openDialog(event);
+        window.showCard(event.target, dialog, dialogClose, activeClickedElementHolder, closeDialog, closeDialogByEnterKey, focusActiveClickedElement);
       }
     };
 
-    var closeDialogByEnterKey = function () {
+    var closeDialog = function (callback) {
+      dialogClose.setAttribute('aria-pressed', true);
+      activeClickedElement.setAttribute('aria-pressed', false);
+      dialog.style.display = 'none';
+      if (activeClickedElementHolder && activeClickedElementHolder.value) {
+        activeClickedElementHolder.value.classList.remove('pin--active');
+      }
+      dialogClose.removeEventListener('click', closeDialog);
+      dialogClose.removeEventListener('keydown', closeDialogByEnterKey);
+      if (typeof callback === 'function') {
+        callback();
+      }
+    };
+
+    var closeDialogByEnterKey = function (callback) {
       if (isEnterKeyPressed(event)) {
-        closeDialog();
+        closeDialog(callback);
       }
     };
 
     clickedElement.addEventListener('click', openDialog, true);
     clickedElement.addEventListener('keydown', openDialogByEnterKey, true);
-    dialogClose.addEventListener('click', closeDialog);
-    dialogClose.addEventListener('keydown', closeDialogByEnterKey);
+
+    // Чтобы у открытого по умолчанию диалога были необходимые лиснеры для его закрытия
+    window.showCard(activeClickedElement, dialog, dialogClose, activeClickedElementHolder, closeDialog, closeDialogByEnterKey);
   };
 })();

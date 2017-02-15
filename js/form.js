@@ -18,41 +18,45 @@
 
   window.initializePins(dialog, dialogClose, pinMap, activePin);
 
+  var changeFields = function (element1, element2, element1Array, element2Array, property) {
+    element2[property] = element2Array[element1.selectedIndex];
+  };
+
   timeField.addEventListener('change', function () {
-    window.synchronizeFields(
+    window.synchronizeFields(changeFields(
         timeField,
         timeoutField,
         [12, 13, 14],
         [12, 13, 14],
         'value'
-    );
+    ));
   });
   timeoutField.addEventListener('change', function () {
-    window.synchronizeFields(
+    window.synchronizeFields(changeFields(
         timeoutField,
         timeField,
         [12, 13, 14],
         [12, 13, 14],
         'value'
-    );
+    ));
   });
   roomNumberField.addEventListener('change', function () {
-    window.synchronizeFields(
+    window.synchronizeFields(changeFields(
         roomNumberField,
         capacityField,
         [1, 2, 100],
         [0, 3, 3],
         'value'
-    );
+    ));
   });
   typeField.addEventListener('change', function () {
-    window.synchronizeFields(
+    window.synchronizeFields(changeFields(
         typeField,
         priceField,
         ['flat', 'cabin', 'palace'],
         [1000, 0, 10000],
         'min'
-    );
+    ));
   });
 
   priceField.addEventListener('invalid', function () {
