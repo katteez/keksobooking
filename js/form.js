@@ -22,45 +22,37 @@
     element2.value = newValue;
   };
 
-  timeField.addEventListener('change', function () {
-    window.synchronizeFields(
-        timeField,
-        timeoutField,
-        [12, 13, 14],
-        syncValues
-    );
-  });
+  window.synchronizeFields(
+      timeField,
+      timeoutField,
+      [12, 13, 14],
+      syncValues
+  );
 
-  timeoutField.addEventListener('change', function () {
-    window.synchronizeFields(
-        timeoutField,
-        timeField,
-        [12, 13, 14],
-        syncValues
-    );
-  });
+  window.synchronizeFields(
+      timeoutField,
+      timeField,
+      [12, 13, 14],
+      syncValues
+  );
 
-  roomNumberField.addEventListener('change', function () {
-    window.synchronizeFields(
-        roomNumberField,
-        capacityField,
-        [0, 3, 3],
-        syncValues
-    );
-  });
+  window.synchronizeFields(
+      roomNumberField,
+      capacityField,
+      [0, 3, 3],
+      syncValues
+  );
 
   var syncValueWithMin = function (element2, newValue) {
     element2.min = newValue;
   };
 
-  typeField.addEventListener('change', function () {
-    window.synchronizeFields(
-        typeField,
-        priceField,
-        [1000, 0, 10000],
-        syncValueWithMin
-    );
-  });
+  window.synchronizeFields(
+      typeField,
+      priceField,
+      [1000, 0, 10000],
+      syncValueWithMin
+  );
 
   priceField.addEventListener('invalid', function () {
     priceField.setCustomValidity('Пожалуйста, введите цену от ' + priceField.min + ' до 1000000');
