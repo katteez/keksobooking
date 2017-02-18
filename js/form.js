@@ -18,45 +18,48 @@
 
   window.initializePins(dialog, dialogClose, pinMap, activePin);
 
-  var changeFields = function (element1, element2, element1Array, element2Array, property) {
-    element2[property] = element2Array[element1.selectedIndex];
+  var syncValues = function (element2, newValue) {
+    element2.value = newValue;
   };
 
   timeField.addEventListener('change', function () {
-    window.synchronizeFields(changeFields(
+    window.synchronizeFields(
         timeField,
         timeoutField,
         [12, 13, 14],
-        [12, 13, 14],
-        'value'
-    ));
+        syncValues
+    );
   });
+
   timeoutField.addEventListener('change', function () {
-    window.synchronizeFields(changeFields(
+    window.synchronizeFields(
         timeoutField,
         timeField,
         [12, 13, 14],
-        [12, 13, 14],
-        'value'
-    ));
+        syncValues
+    );
   });
+
   roomNumberField.addEventListener('change', function () {
-    window.synchronizeFields(changeFields(
+    window.synchronizeFields(
         roomNumberField,
         capacityField,
-        [1, 2, 100],
         [0, 3, 3],
-        'value'
-    ));
+        syncValues
+    );
   });
+
+  var syncValueWithMin = function (element2, newValue) {
+    element2.min = newValue;
+  };
+
   typeField.addEventListener('change', function () {
-    window.synchronizeFields(changeFields(
+    window.synchronizeFields(
         typeField,
         priceField,
-        ['flat', 'cabin', 'palace'],
         [1000, 0, 10000],
-        'min'
-    ));
+        syncValueWithMin
+    );
   });
 
   priceField.addEventListener('invalid', function () {
