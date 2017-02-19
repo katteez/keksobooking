@@ -25,21 +25,24 @@
   window.synchronizeFields(
       timeField,
       timeoutField,
-      [12, 13, 14],
+      ['12', '13', '14'],
+      ['12', '13', '14'],
       syncValues
   );
 
   window.synchronizeFields(
       timeoutField,
       timeField,
-      [12, 13, 14],
+      ['12', '13', '14'],
+      ['12', '13', '14'],
       syncValues
   );
 
   window.synchronizeFields(
       roomNumberField,
       capacityField,
-      [0, 3, 3],
+      ['1', '2', '100'],
+      ['0', '3', '3'],
       syncValues
   );
 
@@ -50,7 +53,8 @@
   window.synchronizeFields(
       typeField,
       priceField,
-      [1000, 0, 10000],
+      ['flat', 'cabin', 'palace'],
+      ['1000', '0', '10000'],
       syncValueWithMin
   );
 
