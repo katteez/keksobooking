@@ -18,42 +18,45 @@
 
   window.initializePins(dialog, dialogClose, pinMap, activePin);
 
-  timeField.addEventListener('change', function () {
-    window.synchronizeFields(
-        timeField,
-        timeoutField,
-        [12, 13, 14],
-        [12, 13, 14],
-        'value'
-    );
-  });
-  timeoutField.addEventListener('change', function () {
-    window.synchronizeFields(
-        timeoutField,
-        timeField,
-        [12, 13, 14],
-        [12, 13, 14],
-        'value'
-    );
-  });
-  roomNumberField.addEventListener('change', function () {
-    window.synchronizeFields(
-        roomNumberField,
-        capacityField,
-        [1, 2, 100],
-        [0, 3, 3],
-        'value'
-    );
-  });
-  typeField.addEventListener('change', function () {
-    window.synchronizeFields(
-        typeField,
-        priceField,
-        ['flat', 'cabin', 'palace'],
-        [1000, 0, 10000],
-        'min'
-    );
-  });
+  var syncValues = function (element2, newValue) {
+    element2.value = newValue;
+  };
+
+  window.synchronizeFields(
+      timeField,
+      timeoutField,
+      ['12', '13', '14'],
+      ['12', '13', '14'],
+      syncValues
+  );
+
+  window.synchronizeFields(
+      timeoutField,
+      timeField,
+      ['12', '13', '14'],
+      ['12', '13', '14'],
+      syncValues
+  );
+
+  window.synchronizeFields(
+      roomNumberField,
+      capacityField,
+      ['1', '2', '100'],
+      ['0', '3', '3'],
+      syncValues
+  );
+
+  var syncValueWithMin = function (element2, newValue) {
+    element2.min = newValue;
+  };
+
+  window.synchronizeFields(
+      typeField,
+      priceField,
+      ['flat', 'cabin', 'palace'],
+      ['1000', '0', '10000'],
+      syncValueWithMin
+  );
 
   priceField.addEventListener('invalid', function () {
     priceField.setCustomValidity('Пожалуйста, введите цену от ' + priceField.min + ' до 1000000');
