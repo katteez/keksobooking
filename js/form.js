@@ -16,6 +16,8 @@
   var roomNumberField = noticeForm.querySelector('#room_number');
   var capacityField = noticeForm.querySelector('#capacity');
 
+  dialog.style.display = 'none';
+
   window.initializePins(dialog, dialogClose, pinMap, activePin);
 
   var syncValues = function (element2, newValue) {
@@ -53,7 +55,7 @@
   window.synchronizeFields(
       typeField,
       priceField,
-      ['flat', 'cabin', 'palace'],
+      ['flat', 'bungalo', 'house'],
       ['1000', '0', '10000'],
       syncValueWithMin
   );

@@ -66,14 +66,14 @@
       </form>
     </div>
     <div class="tokyo__pin-map">
-      <div class="pin  pin__main" role="button" aria-pressed="false" tabindex="4"><img src="img/main-pin-image.png" alt="Main Pin" class="rounded" width="40" height="44"></div>
-      <div class="pin  pin--active" style="left: 700px;top: 350px" role="button" aria-pressed="true" tabindex="5"><img src="img/avatars/avatar.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
-      <div class="pin" style="left: 400px;top: 400px" role="button" aria-pressed="false" tabindex="2"><img src="img/avatars/simpson.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
-      <div class="pin" role="button" aria-pressed="false" tabindex="3"><img src="img/avatars/default.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
+      <div class="pin  pin__main" role="button" aria-pressed="false" tabindex="0"><img src="img/main-pin-image.png" alt="Main Pin" class="rounded" width="40" height="44"></div>
+      <div class="pin" style="left: 700px;top: 350px"><img src="img/avatars/avatar.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
+      <div class="pin" style="left: 400px;top: 400px"><img src="img/avatars/simpson.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
+      <div class="pin"><img src="img/avatars/default.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
     </div>
     <div class="dialog" role="dialog" aria-label="Карточка объявления">
       <div class="dialog__title"><img src="img/avatars/avatar.png" alt="Avatar" width="70" height="70">
-        <a href="#" class="dialog__close" role="button" aria-pressed="false"><img src="img/close.svg" alt="close" width="22" height="22" tabindex="1"></a>
+        <a href="#" class="dialog__close" role="button" aria-pressed="false"><img src="img/close.svg" alt="close" width="22" height="22"></a>
       </div>
       <div class="dialog__panel">
         <h3 class="lodge__title">Уютное гнездышко для молодоженов</h3>
@@ -127,8 +127,8 @@
               <label for="type">Тип жилья</label>
               <select id="type">
                 <option value="flat" selected>Квартира</option>
-                <option value="cabin">Лачуга</option>
-                <option value="palace">Дворец</option>
+                <option value="bungalo">Лачуга</option>
+                <option value="house">Дворец</option>
               </select>
             </div>
             <div class="form__element">
@@ -256,6 +256,14 @@
   </div>
 </footer>
 
+<template id="pin-template">
+  <div class="pin">
+    <img src="" alt="" class="rounded" width="40" height="40">
+  </div>
+</template>
+
+<script src="js/load.js" type="application/javascript"></script>
+<script src="js/render-pins.js" type="application/javascript"></script>
 <script src="js/show-card.js" type="application/javascript"></script>
 <script src="js/initialize-pins.js" type="application/javascript"></script>
 <script src="js/synchronize-fields.js" type="application/javascript"></script>
