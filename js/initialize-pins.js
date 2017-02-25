@@ -2,8 +2,11 @@
 
 window.initializePins = (function () {
   var ENTER_KEY_CODE = 13;
+  var MAX_PINS_DEFAULT = 3;
   var APARTMENTS_DATA_URL = 'https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data';
   var similarApartments = [];
+  var filteredPins = [];
+  var tokyoFilters = document.querySelector('.tokyo__filters');
 
   var isEnterKeyPressed = function (event) {
     return event.keyCode && event.keyCode === ENTER_KEY_CODE;
@@ -23,14 +26,24 @@ window.initializePins = (function () {
       });
     };
 
-    window.load(APARTMENTS_DATA_URL, function (data) {
-      similarApartments = JSON.parse(data);
+    var renderFilteredPins = function () {
       clearPinMap();
-      for (var i = 0; i < 3; i++) {
-        var pinElement = window.renderPins(similarApartments[i], i + 1);
+      filteredPins.forEach(function (item, i) {
+        var pinElement = window.renderPins(item, i + 1);
         pinElement.setAttribute('data-index', i);
         pinMap.appendChild(pinElement);
-      }
+      });
+    };
+
+    window.load(APARTMENTS_DATA_URL, function (data) {
+      similarApartments = JSON.parse(data);
+      filteredPins = similarApartments.slice(0, MAX_PINS_DEFAULT);
+      renderFilteredPins();
+    });
+
+    tokyoFilters.addEventListener('change', function () {
+      filteredPins = window.filterPins(similarApartments);
+      renderFilteredPins();
     });
 
     var focusActiveClickedElement = function () {
@@ -45,19 +58,19 @@ window.initializePins = (function () {
       return target;
     };
 
-    var showCard = function (event, callback) {
+    var localShowCard = function (event, callback) {
       var target = getCorrectEventTarget(event);
-      var similarApartmentsItem = similarApartments[target.getAttribute('data-index')];
+      var similarApartmentsItem = filteredPins[target.getAttribute('data-index')];
       window.showCard(target, similarApartmentsItem, dialog, dialogClose, activeClickedElementHolder, closeDialog, closeDialogByEnterKey, callback);
     };
 
     var openDialog = function (event) {
-      showCard(event);
+      localShowCard(event);
     };
 
     var openDialogByEnterKey = function (event) {
       if (isEnterKeyPressed(event)) {
-        showCard(event, focusActiveClickedElement);
+        localShowCard(event, focusActiveClickedElement);
       }
     };
 
