@@ -1,6 +1,6 @@
 'use strict';
 
-window.showCard = function (target, similarApartments, dialog, dialogClose, activeClickedElementHolder, closeDialog, closeDialogByEnterKey, focusActiveClickedElement) {
+window.showCard = function (target, pinData, dialog, dialogClose, activeClickedElementHolder, closeDialog, closeDialogByEnterKey, focusActiveClickedElement) {
   var authorAvatar = dialog.querySelector('.dialog__title img');
   var offerTitle = dialog.querySelector('.lodge__title');
   var offerAddress = dialog.querySelector('.lodge__address');
@@ -61,16 +61,11 @@ window.showCard = function (target, similarApartments, dialog, dialogClose, acti
     activeClickedElementHolder.value.classList.remove('pin--active');
   }
   dialogClose.setAttribute('aria-pressed', false);
-
-  if (!target.classList.contains('pin')) {
-    target = target.parentNode;
-  }
   target.setAttribute('aria-pressed', true);
   target.classList.add('pin--active');
   activeClickedElementHolder.value = target;
 
-  var index = target.getAttribute('data-index');
-  fillDialog(similarApartments[index]);
+  fillDialog(pinData);
   dialog.style.display = 'block';
 
   dialogClose.addEventListener('click', function () {

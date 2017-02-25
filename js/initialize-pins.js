@@ -13,18 +13,23 @@ window.initializePins = (function () {
     // Записываем активный элемент в свойство объекта, чтобы его можно было менять в другом модуле (show-card)
     var activeClickedElementHolder = {value: activeClickedElement};
 
-    var pinMapDescendants = pinMap.querySelectorAll('*');
-    pinMapDescendants = Array.prototype.slice.call(pinMapDescendants);
-    pinMapDescendants.forEach(function (item) {
-      if (!item.classList.contains('pin__main') && !item.parentNode.classList.contains('pin__main')) {
-        item.remove();
-      }
-    });
+    var clearPinMap = function () {
+      var pinMapDescendants = pinMap.querySelectorAll('*');
+      pinMapDescendants = Array.prototype.slice.call(pinMapDescendants);
+      pinMapDescendants.forEach(function (item) {
+        if (!item.classList.contains('pin__main') && !item.parentNode.classList.contains('pin__main')) {
+          item.remove();
+        }
+      });
+    };
 
     window.load(APARTMENTS_DATA_URL, function (data) {
       similarApartments = JSON.parse(data);
+      clearPinMap();
       for (var i = 0; i < 3; i++) {
-        pinMap.appendChild(window.renderPins(similarApartments[i], i));
+        var pinElement = window.renderPins(similarApartments[i], i + 1);
+        pinElement.setAttribute('data-index', i);
+        pinMap.appendChild(pinElement);
       }
     });
 
@@ -32,13 +37,27 @@ window.initializePins = (function () {
       activeClickedElementHolder.value.focus();
     };
 
+    var getCorrectEventTarget = function (event) {
+      var target = event.target;
+      if (!event.target.classList.contains('pin')) {
+        target = event.target.parentNode;
+      }
+      return target;
+    };
+
+    var showCard = function (event, callback) {
+      var target = getCorrectEventTarget(event);
+      var similarApartmentsItem = similarApartments[target.getAttribute('data-index')];
+      window.showCard(target, similarApartmentsItem, dialog, dialogClose, activeClickedElementHolder, closeDialog, closeDialogByEnterKey, callback);
+    };
+
     var openDialog = function (event) {
-      window.showCard(event.target, similarApartments, dialog, dialogClose, activeClickedElementHolder, closeDialog, closeDialogByEnterKey);
+      showCard(event);
     };
 
     var openDialogByEnterKey = function (event) {
       if (isEnterKeyPressed(event)) {
-        window.showCard(event.target, similarApartments, dialog, dialogClose, activeClickedElementHolder, closeDialog, closeDialogByEnterKey, focusActiveClickedElement);
+        showCard(event, focusActiveClickedElement);
       }
     };
 

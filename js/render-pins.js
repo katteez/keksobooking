@@ -4,11 +4,10 @@ window.renderPins = (function () {
   var templateElement = document.querySelector('#pin-template');
   var elementToClone = templateElement.content.querySelector('.pin');
 
-  return function (pinData, pinIndex) {
+  return function (pinData, tabIndex) {
     var pinElement = elementToClone.cloneNode(true);
 
-    pinElement.setAttribute('data-index', pinIndex);
-    pinElement.setAttribute('tabindex', pinIndex + 1);
+    pinElement.setAttribute('tabindex', tabIndex);
     pinElement.setAttribute('role', 'button');
     pinElement.setAttribute('aria-pressed', 'false');
 
