@@ -1,6 +1,6 @@
 'use strict';
 
-window.renderPins = (function () {
+window.renderPin = (function () {
   var templateElement = document.querySelector('#pin-template');
   var elementToClone = templateElement.content.querySelector('.pin');
 

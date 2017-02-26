@@ -28,8 +28,8 @@ window.initializePins = (function () {
 
     var renderFilteredPins = function () {
       clearPinMap();
-      filteredPins.forEach(function (item, i) {
-        var pinElement = window.renderPins(item, i + 1);
+      filteredPins.forEach(function (pin, i) {
+        var pinElement = window.renderPin(pin, i + 1);
         pinElement.setAttribute('data-index', i);
         pinMap.appendChild(pinElement);
       });
@@ -60,41 +60,44 @@ window.initializePins = (function () {
 
     var localShowCard = function (event, callback) {
       var target = getCorrectEventTarget(event);
-      var similarApartmentsItem = filteredPins[target.getAttribute('data-index')];
-      window.showCard(target, similarApartmentsItem, dialog, dialogClose, activeClickedElementHolder, closeDialog, closeDialogByEnterKey, callback);
+      if (target.classList.contains('pin') && !target.classList.contains('pin__main')) {
+        var similarApartmentsItem = filteredPins[target.getAttribute('data-index')];
+        window.showCard(target, similarApartmentsItem, dialog, dialogClose, activeClickedElementHolder, dialogCloseClickHandler, dialogCloseKeyDownHandler, callback);
+      }
     };
 
-    var openDialog = function (event) {
+    var pinClickHandler = function (event) {
       localShowCard(event);
     };
 
-    var openDialogByEnterKey = function (event) {
+    var pinKeyDownHandler = function (event) {
       if (isEnterKeyPressed(event)) {
         localShowCard(event, focusActiveClickedElement);
       }
     };
 
-    var closeDialog = function (callback) {
+    var dialogCloseClickHandler = function (callback) {
+      focusActiveClickedElement = callback;
       dialogClose.setAttribute('aria-pressed', true);
       activeClickedElementHolder.value.setAttribute('aria-pressed', false);
       dialog.style.display = 'none';
       if (activeClickedElementHolder && activeClickedElementHolder.value) {
         activeClickedElementHolder.value.classList.remove('pin--active');
       }
-      dialogClose.removeEventListener('click', closeDialog);
-      dialogClose.removeEventListener('keydown', closeDialogByEnterKey);
-      if (typeof callback === 'function') {
-        callback();
+      dialogClose.removeEventListener('click', dialogCloseClickHandler);
+      dialogClose.removeEventListener('keydown', dialogCloseKeyDownHandler);
+      if (typeof focusActiveClickedElement === 'function') {
+        focusActiveClickedElement();
       }
     };
 
-    var closeDialogByEnterKey = function (callback) {
+    var dialogCloseKeyDownHandler = function (callback) {
       if (isEnterKeyPressed(event)) {
-        closeDialog(callback);
+        dialogCloseClickHandler(callback);
       }
     };
 
-    pinMap.addEventListener('click', openDialog, true);
-    pinMap.addEventListener('keydown', openDialogByEnterKey, true);
+    pinMap.addEventListener('click', pinClickHandler, true);
+    pinMap.addEventListener('keydown', pinKeyDownHandler, true);
   };
 })();

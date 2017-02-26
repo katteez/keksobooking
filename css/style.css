@@ -643,6 +643,10 @@ select option:hover {
     background-image: url("../img/main-pin.png");
 }
 
+.pin__main:hover {
+  cursor: default;
+}
+
 .pin__main img {
     margin-left: 17px;
     margin-top: 15px;

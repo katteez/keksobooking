@@ -1,7 +1,7 @@
 'use strict';
 
 window.showCard = (function () {
-  return function (target, pinData, dialog, dialogClose, activeClickedElementHolder, closeDialog, closeDialogByEnterKey, focusActiveClickedElement) {
+  return function (target, pinData, dialog, dialogClose, activeClickedElementHolder, dialogCloseClickHandler, dialogCloseKeyDownHandler, callback) {
     var authorAvatar = dialog.querySelector('.dialog__title img');
     var offerTitle = dialog.querySelector('.lodge__title');
     var offerAddress = dialog.querySelector('.lodge__address');
@@ -70,10 +70,10 @@ window.showCard = (function () {
     dialog.style.display = 'block';
 
     dialogClose.addEventListener('click', function () {
-      closeDialog(focusActiveClickedElement);
+      dialogCloseClickHandler(callback);
     });
     dialogClose.addEventListener('keydown', function () {
-      closeDialogByEnterKey(focusActiveClickedElement);
+      dialogCloseKeyDownHandler(callback);
     });
   };
 })();

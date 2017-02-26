@@ -56,8 +56,8 @@ window.filterPins = (function () {
     return (checkedFeaturesNames.length === 0) || (checkedFeaturesNames.every(isCheckedApartmentFeatures));
   };
 
-  return function (pinsData) {
-    return pinsData.filter(function (apartment) {
+  return function (apartments) {
+    return apartments.filter(function (apartment) {
       return isInRangeType(apartment.offer.type) &&
              isInRangePrice(apartment.offer.price) &&
              isInRangeRooms(apartment.offer.rooms) &&
