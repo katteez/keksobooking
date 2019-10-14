@@ -13,15 +13,15 @@
   },
   "homepage": "https://github.com/htmlacademy-javascript/20096-keksobooking",
   "devDependencies": {
-    "eslint": "3.9.0",
-    "eslint-config-htmlacademy": "0.2.x",
-    "eslint-plugin-requirejs": "2.0.1"
+    "eslint": "5.13.0",
+    "eslint-config-htmlacademy": "0.5.2",
+    "eslint-plugin-requirejs": "4.0.0"
   },
   "dependencies": {},
   "scripts": {
     "test": "eslint js/"
   },
   "engines": {
-    "node": "^6.9"
+    "node": "10"
   }
 }
