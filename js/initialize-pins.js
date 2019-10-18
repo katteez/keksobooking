@@ -3,7 +3,7 @@
 window.initializePins = (function () {
   var ENTER_KEY_CODE = 13;
   var MAX_PINS_DEFAULT = 3;
-  var APARTMENTS_DATA_URL = 'https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data';
+  var APARTMENTS_DATA_URL = 'https://intensive-javascript-server-myophkugvq.now.sh/keksobooking/data';
   var similarApartments = [];
   var filteredPins = [];
   var tokyoFilters = document.querySelector('.tokyo__filters');
