@@ -17,33 +17,39 @@ window.showCard = (function () {
       var features = dialogData.offer.features;
       offerFeatures.innerHTML = '';
 
-      features.forEach(function (item) {
-        var featureElement = document.createElement('span');
-        featureElement.classList.add('feature__image');
-        featureElement.classList.add('feature__image--' + item);
-        offerFeatures.appendChild(featureElement);
-      });
+      if (features && features.length) {
+        features.forEach(function (item) {
+          var featureElement = document.createElement('span');
+          featureElement.classList.add('feature__image');
+          featureElement.classList.add('feature__image--' + item);
+          offerFeatures.appendChild(featureElement);
+        });
+      }
     };
 
     var fillPhotos = function (dialogData) {
       var photos = dialogData.offer.photos;
       offerPhotos.innerHTML = '';
 
-      photos.forEach(function (item) {
-        var img = document.createElement('img');
-        img.setAttribute('src', item);
-        img.setAttribute('width', '52');
-        img.setAttribute('height', '42');
-        img.setAttribute('alt', 'appartment photo');
-        offerPhotos.appendChild(img);
-      });
+      if (photos && photos.length) {
+        photos.forEach(function (item) {
+          var img = document.createElement('img');
+          img.setAttribute('src', item);
+          img.setAttribute('width', '52');
+          img.setAttribute('height', '42');
+          img.setAttribute('alt', 'appartment photo');
+          offerPhotos.appendChild(img);
+        });
+      }
     };
 
     var fillDialog = function (dialogData) {
       var typesApartments = {
         'flat': 'Квартира',
-        'bungalo': 'Лачуга',
-        'house': 'Дворец'
+        'bungalow': 'Лачуга',
+        'house': 'Дом',
+        'palace': 'Дворец',
+        'hotel': 'Отель'
       };
 
       authorAvatar.setAttribute('src', dialogData.author.avatar);
@@ -54,7 +60,7 @@ window.showCard = (function () {
       offerRoomsAndGuests.innerText = dialogData.offer.rooms + ' комнаты для ' + dialogData.offer.guests + ' гостей';
       offerCheckinTime.innerText = 'Заезд после ' + dialogData.offer.checkin + ', выезд до ' + dialogData.offer.checkout;
       fillFeatures(dialogData);
-      offerDescription.innerText = dialogData.offer.description;
+      offerDescription.innerText = dialogData.offer.description ?? '';
       fillPhotos(dialogData);
     };
 

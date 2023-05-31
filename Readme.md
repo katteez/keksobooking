@@ -1,4 +1,4 @@
-# Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
+# Личный проект «Кексобукинг»
 
 * Студент: [Екатерина Зощик](https://up.htmlacademy.ru/javascript/8/user/20096).
 * Наставник: [Сергей Ключковский](https://up.htmlacademy.ru/javascript/8/user/44700).

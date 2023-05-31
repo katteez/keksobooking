@@ -2,8 +2,8 @@
 
 window.initializePins = (function () {
   var ENTER_KEY_CODE = 13;
-  var MAX_PINS_DEFAULT = 3;
-  var APARTMENTS_DATA_URL = 'https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data';
+  var MAX_PINS_DEFAULT = 30;
+  var APARTMENTS_DATA_URL = 'https://28.javascript.pages.academy/keksobooking/data';
   var similarApartments = [];
   var filteredPins = [];
   var tokyoFilters = document.querySelector('.tokyo__filters');
@@ -37,12 +37,12 @@ window.initializePins = (function () {
 
     window.load(APARTMENTS_DATA_URL, function (data) {
       similarApartments = JSON.parse(data);
-      filteredPins = similarApartments.slice(0, MAX_PINS_DEFAULT);
+      filteredPins = window.filterPins(similarApartments.slice(0, MAX_PINS_DEFAULT));
       renderFilteredPins();
     });
 
     tokyoFilters.addEventListener('change', function () {
-      filteredPins = window.filterPins(similarApartments);
+      filteredPins = window.filterPins(similarApartments.slice(0, MAX_PINS_DEFAULT));
       renderFilteredPins();
     });
 

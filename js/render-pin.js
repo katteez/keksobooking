@@ -11,8 +11,10 @@ window.renderPin = (function () {
     pinElement.setAttribute('role', 'button');
     pinElement.setAttribute('aria-pressed', 'false');
 
-    pinElement.style.top = pinData.location.y + 'px';
-    pinElement.style.left = pinData.location.x + 'px';
+    // Math.random из-за того, что на новом потоке курса используется карта вместо картинки,
+    // и координаты точек почти одинаковые. Чтобы они не отображались все в одном месте.
+    pinElement.style.top = pinData.location.lng + Math.floor(Math.random() * 450) + 'px';
+    pinElement.style.left = pinData.location.lat + Math.floor(Math.random() * 450) + 'px';
 
     var avatar = pinElement.querySelector('img');
     avatar.setAttribute('src', pinData.author.avatar);

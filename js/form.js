@@ -52,7 +52,7 @@
   window.synchronizeFields(
       typeField,
       priceField,
-      ['flat', 'bungalo', 'house'],
+      ['bungalow', 'flat', 'house', 'palace', 'hotel'],
       ['1000', '0', '10000'],
       syncValueWithMin
   );
