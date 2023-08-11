@@ -51,7 +51,7 @@ window.filterPins = (function () {
     var checkedFeaturesNames = Array.prototype.filter.call(filterFeatures, getCheckedFeature).map(getFeatureName);
 
     var isCheckedApartmentFeatures = function (feature) {
-      return apartmentFeatures.indexOf(feature) >= 0;
+      return apartmentFeatures?.indexOf(feature) >= 0;
     };
     return (checkedFeaturesNames.length === 0) || (checkedFeaturesNames.every(isCheckedApartmentFeatures));
   };
