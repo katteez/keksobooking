@@ -3,7 +3,8 @@
 window.initializePins = (function () {
   var ENTER_KEY_CODE = 13;
   var MAX_PINS_DEFAULT = 30;
-  var APARTMENTS_DATA_URL = 'https://28.javascript.pages.academy/keksobooking/data';
+  var APARTMENTS_DATA_URL =
+    'https://32.javascript.htmlacademy.pro/keksobooking/data';
   var similarApartments = [];
   var filteredPins = [];
   var tokyoFilters = document.querySelector('.tokyo__filters');
@@ -14,13 +15,16 @@ window.initializePins = (function () {
 
   return function (dialog, dialogClose, pinMap, activeClickedElement) {
     // Записываем активный элемент в свойство объекта, чтобы его можно было менять в другом модуле (show-card)
-    var activeClickedElementHolder = {value: activeClickedElement};
+    var activeClickedElementHolder = { value: activeClickedElement };
 
     var clearPinMap = function () {
       var pinMapDescendants = pinMap.querySelectorAll('*');
       pinMapDescendants = Array.prototype.slice.call(pinMapDescendants);
       pinMapDescendants.forEach(function (item) {
-        if (!item.classList.contains('pin__main') && !item.parentNode.classList.contains('pin__main')) {
+        if (
+          !item.classList.contains('pin__main') &&
+          !item.parentNode.classList.contains('pin__main')
+        ) {
           item.remove();
         }
       });
@@ -37,12 +41,16 @@ window.initializePins = (function () {
 
     window.load(APARTMENTS_DATA_URL, function (data) {
       similarApartments = JSON.parse(data);
-      filteredPins = window.filterPins(similarApartments.slice(0, MAX_PINS_DEFAULT));
+      filteredPins = window.filterPins(
+        similarApartments.slice(0, MAX_PINS_DEFAULT)
+      );
       renderFilteredPins();
     });
 
     tokyoFilters.addEventListener('change', function () {
-      filteredPins = window.filterPins(similarApartments.slice(0, MAX_PINS_DEFAULT));
+      filteredPins = window.filterPins(
+        similarApartments.slice(0, MAX_PINS_DEFAULT)
+      );
       renderFilteredPins();
     });
 
@@ -60,9 +68,22 @@ window.initializePins = (function () {
 
     var localShowCard = function (event, callback) {
       var target = getCorrectEventTarget(event);
-      if (target.classList.contains('pin') && !target.classList.contains('pin__main')) {
-        var similarApartmentsItem = filteredPins[target.getAttribute('data-index')];
-        window.showCard(target, similarApartmentsItem, dialog, dialogClose, activeClickedElementHolder, dialogCloseClickHandler, dialogCloseKeyDownHandler, callback);
+      if (
+        target.classList.contains('pin') &&
+        !target.classList.contains('pin__main')
+      ) {
+        var similarApartmentsItem =
+          filteredPins[target.getAttribute('data-index')];
+        window.showCard(
+          target,
+          similarApartmentsItem,
+          dialog,
+          dialogClose,
+          activeClickedElementHolder,
+          dialogCloseClickHandler,
+          dialogCloseKeyDownHandler,
+          callback
+        );
       }
     };
 
